@@ -15,12 +15,12 @@ def render():
     # Thiết lập wide mode cho Streamlit
     st.set_page_config(layout="wide")
 
-    st.header('TRA CỨU VĂN BẢN 2024')
-    st.text('tra cứu văn bản')
-    st.text('@@@@@@@@@@@@@@@@')
+    st.header('DŨNG - QUẢN LÝ ĐÔ THỊ HUYỆN PHÚC THỌ')
+    st.text('TRA CỨU VĂN BẢN')
+    
 
 ####################################
-    ten_file_csv_0= r'data/vanban.csv'
+    ten_file_csv_0= r'data/socongvan.csv'
     df=pd.read_csv(ten_file_csv_0, header=0, dtype=str) #lấy dữ liệu, không lấy header
 
     df=pd.DataFrame(df)
@@ -37,7 +37,7 @@ def render():
     # Nhập dữ liệu tìm kiếm
     trich_yeu = 'Về việc' # str.contains để kiểm tra hoặc có có chuỗi này không
     loai_bo_trich_yeu = '@@@'
-    so_ky_hieu = 'qđ' #.apply để kiểm tra có đồng thời các chuỗi này không
+    so_ky_hieu = 'qldt' #.apply để kiểm tra có đồng thời các chuỗi này không
     loai_bo_so_ky_hieu = '@@@'
     ngay_van_ban = '2024' # str.contains để kiểm tra hoặc có có chuỗi này không
 
@@ -111,7 +111,7 @@ def render():
     ) 
 
 ####################################
-    path_file= r'data/vanban1.csv'
+    path_file= r'data/danhsachthumuc.csv'
     df_path=pd.read_csv(path_file, header=0, dtype=str)
 
     df_path=pd.DataFrame(df_path)
@@ -127,12 +127,12 @@ def render():
     gb1 = GridOptionsBuilder.from_dataframe(df_path_loc)
 
     # Cấu hình chiều rộng của từng cột
-    gb1.configure_column("Folder Name", width=10, sortable=True)
-    gb1.configure_column("Full Path", width=20, sortable=True)
+    # gb1.configure_column("Folder Name", width=10, sortable=True)
+    # gb1.configure_column("Full Path", width=20, sortable=True)
     # Cấu hình phân trang
-    gb1.configure_pagination(paginationAutoPageSize=True)  # Chia thành nhiều trang tự động
-    gb1.configure_default_column(wrapText=True, autoHeight=True)  # Tự động giãn ô khi chuỗi dài
-    gridOptions1 = gb1.build()
+    # gb1.configure_pagination(paginationAutoPageSize=True)  # Chia thành nhiều trang tự động
+    # gb1.configure_default_column(wrapText=True, autoHeight=True)  # Tự động giãn ô khi chuỗi dài
+    # gridOptions1 = gb1.build()
     # Hiển thị DataFrame với cấu hình tùy chỉnh
     # st.write("Bảng dữ liệu:")
     # AgGrid(df_path_loc, gridOptions=gridOptions1, height=200, fit_columns_on_grid_load=True)
@@ -169,12 +169,10 @@ def render():
     #                 open_local_path(row['Full Path'])
     st.write("Chọn đường dẫn để mở:")
     for index, row in df_path_loc.iterrows():
-        col1, col2, col3 = st.columns([2, 4, 1])
+        col1, col2 = st.columns([4, 1])
         with col1:
-            st.write(row['Folder Name'])
-        with col2:
             st.write(row['Full Path'])
-        with col3:
+        with col2:
             if st.button('Mở File', key=index):
                 open_local_path(row['Full Path'])
         
