@@ -87,8 +87,7 @@ def render():
     gb.configure_column("Ngày văn bản", width=10, sortable=True)
     gb.configure_column("Đơn vị ban hành", width=10, sortable=True)
     gb.configure_column("Ghi chú", width=10, sortable=True)
-    gb.configure_column("Path", width=10, sortable=True)
-
+    
     # Cấu hình phân trang
     gb.configure_pagination(paginationAutoPageSize=True)  # Chia thành nhiều trang tự động
     gb.configure_default_column(wrapText=True, autoHeight=True)  # Tự động giãn ô khi chuỗi dài
