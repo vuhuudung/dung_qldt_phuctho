@@ -15,8 +15,8 @@ def render():
     # Thiết lập wide mode cho Streamlit
     st.set_page_config(layout="wide")
 
-    st.header('DŨNG - QUẢN LÝ ĐÔ THỊ HUYỆN PHÚC THỌ')
-    st.text('TRA CỨU VĂN BẢN')
+    st.header('CHUYÊN VIÊN VŨ HỮU DŨNG - QUẢN LÝ ĐÔ THỊ HUYỆN PHÚC THỌ')
+    st.text('APP TRA CỨU VÀ TÌM KIẾM VĂN BẢN')
     
 
 ####################################
@@ -45,19 +45,19 @@ def render():
     col1, col2, col3, col4, col5 = st.columns(5)
 
     with col1:
-        trich_yeu = st.text_input('Trích yếu', trich_yeu)
+        trich_yeu = st.text_input('Lọc theo Nội dung trích yếu', trich_yeu)
 
     with col2:
-        loai_bo_trich_yeu = st.text_input('Loại bỏ nội dung', loai_bo_trich_yeu)
+        loai_bo_trich_yeu = st.text_input('Loại bỏ nội dung có trong trích yếu', loai_bo_trich_yeu)
 
     with col3:
-        so_ky_hieu = st.text_input('Số ký hiệu ', so_ky_hieu)
+        so_ky_hieu = st.text_input('Lọc theo Số ký hiệu', so_ky_hieu)
 
     with col4:
-        loai_bo_so_ky_hieu = st.text_input('Loại bỏ số ký hiệu', loai_bo_so_ky_hieu)
+        loai_bo_so_ky_hieu = st.text_input('Loại bỏ nội dung có trong số ký hiệu', loai_bo_so_ky_hieu)
 
     with col5:
-        ngay_van_ban = st.text_input('Ngày văn bản', ngay_van_ban)
+        ngay_van_ban = st.text_input('Lọc theo Ngày văn bản', ngay_van_ban)
 
     # chuyển đổi kiểu chữ   
     trich_yeu = chuyen_doi_chu_thuong([item.strip() for item in trich_yeu.split(',')])
@@ -75,13 +75,13 @@ def render():
     ]
     
     # Hiển thị kết quả
-    df_hienthi = df_loc[['STT', 'Trích yếu', 'Số ký hiệu', 'Ngày văn bản', 'Đơn vị ban hành', 'Ghi chú']]
+    df_hienthi = df_loc[['Trích yếu', 'Số ký hiệu', 'Ngày văn bản', 'Đơn vị ban hành', 'Ghi chú']]
     
     # Sử dụng st_aggrid để tùy chỉnh chiều rộng của từng cột
     gb = GridOptionsBuilder.from_dataframe(df_hienthi)
 
     # Cấu hình chiều rộng của từng cột
-    gb.configure_column("STT", width=10, sortable=True)
+    # gb.configure_column("STT", width=10, sortable=True)
     gb.configure_column("Trích yếu", width=100, sortable=True)
     gb.configure_column("Số ký hiệu", width=10, sortable=True)
     gb.configure_column("Ngày văn bản", width=10, sortable=True)
@@ -94,7 +94,7 @@ def render():
     gridOptions = gb.build()
 
     # Hiển thị DataFrame với cấu hình tùy chỉnh
-    st.write("Bảng dữ liệu:")
+    st.write("Kết quả tìm kiếm và tra cứu:")
     AgGrid(df_hienthi, gridOptions=gridOptions, height=400, fit_columns_on_grid_load=True)
         # Tạo nút tải xuống Excel
     excel_buffer = io.BytesIO()
@@ -103,7 +103,7 @@ def render():
     excel_data = excel_buffer.getvalue()
 
     st.download_button(
-        label="Tải xuống Excel",
+        label="Tải xuống danh sách kết quả tìm kiếm",
         data=excel_data,
         file_name='du_lieu.xlsx',
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -116,8 +116,8 @@ def render():
     df_path=pd.DataFrame(df_path)
     df_path=df_path.astype(str)
 
-    so_ky_hieu_2 = '000, qldt, 2024' #.apply để kiểm tra có đồng thời các chuỗi này không
-    so_ky_hieu_2 = st.text_input('Số ký hiệu tên thư mục ', so_ky_hieu_2)
+    so_ky_hieu_2 = '000, cv, qldt, dung, 2024' #.apply để kiểm tra có đồng thời các chuỗi này không
+    so_ky_hieu_2 = st.text_input('Tìm kiếm theo tên thư mục', so_ky_hieu_2)
     so_ky_hieu_2 = chuyen_doi_chu_thuong([item.strip() for item in so_ky_hieu_2.split(',')])
     # Tìm kiếm và lọc các dòng chứa ít nhất một trong các chuỗi cần lọc
     df_path_loc = df_path[df_path['Folder Name'].apply(chu_thuong_khong_dau).apply(lambda x: all(chuoi in x for chuoi in so_ky_hieu_2))]
@@ -166,13 +166,13 @@ def render():
     #         with col3:
     #             if st.button('Mở File', key=index):
     #                 open_local_path(row['Full Path'])
-    st.write("Chọn đường dẫn để mở:")
+    st.write("Chọn đường dẫn để mở Folder:")
     for index, row in df_path_loc.iterrows():
         col1, col2 = st.columns([4, 1])
         with col1:
             st.write(row['Full Path'])
         with col2:
-            if st.button('Mở File', key=index):
+            if st.button('Mở Folder', key=index):
                 open_local_path(row['Full Path'])
         
    
