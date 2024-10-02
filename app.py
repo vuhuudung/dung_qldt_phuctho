@@ -15,13 +15,13 @@ def render():
     # Thiết lập wide mode cho Streamlit
     st.set_page_config(layout="wide")
 
-    st.header('VŨ HỮU DŨNG - CHUYÊN VIÊN PHÒNG QUẢN LÝ ĐÔ THỊ HUYỆN PHÚC THỌ')
-    st.text('APP TRA CỨU VÀ TÌM KIẾM VĂN BẢN 2024')
+    st.header('WEBAPP HỖ TRỢ CÔNG VIỆC')
+    st.text('Tác giả: Vũ Hữu Dũng - CV phòng QLĐT')
     
 
 ####################################
-    ten_file_csv_0= r'data/socongvan.csv'
-    df=pd.read_csv(ten_file_csv_0, header=0, dtype=str) #lấy dữ liệu, không lấy header
+    file_socongvan_csv= r'data/socongvan.csv'
+    df=pd.read_csv(file_socongvan_csv, header=0, dtype=str) #lấy dữ liệu, không lấy header
 
     df=pd.DataFrame(df)
     df=df.astype(str)
