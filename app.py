@@ -1,91 +1,45 @@
 # main.py
 
 import streamlit as st
-from modules.tim_kiem_so_cong_van import TimKiemSoCongVan
-from modules.chuyen_doi_chu_thuong_khong_dau import ChuyenDoiChuThuongKhongDau
-from modules.tim_kiem_danh_sach_thu_muc import TimKiemDanhSachThuMuc
+from giaodien.hien_thi_tim_kiem_so_cong_van import *
+from giaodien.hien_thi_tim_kiem_danh_sach_thu_muc import *
+from giaodien.hien_thi_thong_tin_ung_dung import *
+from giaodien.hien_thi_chuyen_doi_pdf_sang_text import *
+from giaodien.hien_thi_tao_file_danh_sach_thu_muc import *
+from giaodien.hien_thi_tao_file_so_cong_van import *
 
-def hien_thi_thong_tin_ung_dung():
-    """
-    Hiển thị thông tin về ứng dụng.
-    """
-    st.write("**Ứng dụng hỗ trợ công việc**")
-    st.write("""
-        - Phiên bản: 1.0
-        - Tác giả: Vũ Hữu Dũng - Chuyên viên phòng QLĐT
-        - Chức năng chính: Hỗ trợ tìm kiếm và quản lý tài liệu, công văn.
-    """)
 ###########################################################
-def tim_kiem_so_cong_van():
-    """
-    Tìm kiếm công văn dựa trên các tiêu chí.
-    """
-    # Khởi tạo đối tượng tìm kiếm công văn
-    tim_kiem_so_cong_van = TimKiemSoCongVan('data/socongvan.csv')
 
-    # Lấy dữ liệu bộ lọc
-    trich_yeu, loai_bo_trich_yeu, so_ky_hieu, loai_bo_so_ky_hieu, ngay_van_ban = TimKiemSoCongVan.tao_bo_loc()
 
-    # Chuyển đổi các giá trị bộ lọc
-    trich_yeu = ChuyenDoiChuThuongKhongDau.chuyen_doi_chu_thuong([item.strip() for item in trich_yeu.split(',')])
-    loai_bo_trich_yeu = ChuyenDoiChuThuongKhongDau.chuyen_doi_chu_thuong([item.strip() for item in loai_bo_trich_yeu.split(',')])
-    so_ky_hieu = ChuyenDoiChuThuongKhongDau.chuyen_doi_chu_thuong([item.strip() for item in so_ky_hieu.split(',')])
-    loai_bo_so_ky_hieu = ChuyenDoiChuThuongKhongDau.chuyen_doi_chu_thuong([item.strip() for item in loai_bo_so_ky_hieu.split(',')])
-    ngay_van_ban = ChuyenDoiChuThuongKhongDau.chuyen_doi_chu_thuong([item.strip() for item in ngay_van_ban.split(',')])
-
-    # Lọc dữ liệu công văn
-    df_loc_cong_van = tim_kiem_so_cong_van.loc_du_lieu_so_cong_van(trich_yeu, loai_bo_trich_yeu, so_ky_hieu, loai_bo_so_ky_hieu, ngay_van_ban, ChuyenDoiChuThuongKhongDau.chu_thuong_khong_dau)
-    
-    # Hiển thị kết quả công văn
-    df_hien_thi_so_cong_van = df_loc_cong_van[['Trích yếu', 'Số ký hiệu', 'Ngày văn bản', 'Đơn vị ban hành', 'Ghi chú']]
-    TimKiemSoCongVan.hien_thi_data_frame(df_hien_thi_so_cong_van)
-
-    # Nút tải xuống kết quả công văn
-    TimKiemSoCongVan.nut_tai_xuong(df_hien_thi_so_cong_van)
-###########################################################
-def tim_kiem_danh_sach_thu_muc():
-    # Khởi tạo đối tượng tìm kiếm danh sách thư mục
-    tim_kiem_thu_muc = TimKiemDanhSachThuMuc('data/danhsachthumuc.csv')
-
-    # Tìm kiếm thư mục
-    ten_thu_muc = st.text_input('Tìm kiếm theo tên thư mục', '000, cv, qldt, dung, 2024')
-    ten_thu_muc = ChuyenDoiChuThuongKhongDau.chuyen_doi_chu_thuong([item.strip() for item in ten_thu_muc.split(',')])
-
-    # Lọc danh sách thư mục
-    df_loc_danh_sach_thu_muc = tim_kiem_thu_muc.loc_du_lieu_danh_sach_thu_muc(ten_thu_muc, ChuyenDoiChuThuongKhongDau.chu_thuong_khong_dau)
-
-    # Hiển thị danh sách thư mục
-    tim_kiem_thu_muc.hien_thi_danh_sach_thu_muc(df_loc_danh_sach_thu_muc)
-###########################################################
 def render():
-    st.set_page_config(layout="wide")
-    st.title('web app streamlit hỗ trợ công việc')
-    st.header('web app streamlit hỗ trợ công việc')
-    st.subheader('Xin chào mọi người!')
-    st.text('Tác giả: Vũ Hữu Dũng - CV phòng QLĐT')
+    selected_menu = st.sidebar.radio("Chọn chức năng", ["Tạo file dữ liệu","Tìm kiếm", "Chuyển đổi pdf sang text","Thông tin ứng dụng"])
 
-    # st.markdown('---')
-    # st.header('Công cụ tìm kiếm')
-    # st.subheader('Tìm kiếm theo sổ công văn')
-    
-    
-    # st.markdown('---')
-    # st.subheader('Tìm kiếm theo tên thư mục')
-    
-    # Tạo thanh menu ribbon với 2 tùy chọn: "Tìm kiếm" và "Thông tin ứng dụng"
-    selected_menu = st.sidebar.selectbox("Chọn chức năng", ["Tìm kiếm", "Thông tin ứng dụng"])
+    if selected_menu == "Tạo file dữ liệu":
+        # Tab tạo file dữ liệu bao gồm hai phần: tạo file socongvan.csv và danhsachthumuc.csf
+        tab1, tab2 = st.tabs(["Tạo file socongvan.csv", "Tạo file danhsachthumuc.csv"])
+        
+        with tab1:
+            st.subheader("Tạo file socongvan.csv")
+            hien_thi_tao_file_so_cong_van()
 
-    if selected_menu == "Tìm kiếm":
+        with tab2:
+            st.subheader("Tạo file danhsachthumuc.csv")
+            hien_thi_tao_file_danh_sach_thu_muc()
+    elif selected_menu == "Tìm kiếm":
         # Tab tìm kiếm sẽ bao gồm hai phần: tìm kiếm công văn và tìm kiếm thư mục
         tab1, tab2 = st.tabs(["Tìm kiếm theo số công văn", "Tìm kiếm theo tên thư mục"])
         
         with tab1:
             st.subheader("Tìm kiếm số công văn")
-            tim_kiem_so_cong_van()
+            hien_thi_tim_kiem_so_cong_van()
 
         with tab2:
             st.subheader("Tìm kiếm thư mục")
-            tim_kiem_danh_sach_thu_muc()
+            hien_thi_tim_kiem_danh_sach_thu_muc()
+    
+    elif selected_menu == "Chuyển đổi pdf sang text":
+        # Hiển thị thông tin ứng dụng
+        hien_thi_chuyen_doi_pdf_sang_text()
 
     elif selected_menu == "Thông tin ứng dụng":
         # Hiển thị thông tin ứng dụng
