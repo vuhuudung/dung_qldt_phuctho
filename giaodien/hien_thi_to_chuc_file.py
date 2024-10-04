@@ -59,7 +59,7 @@ def organize_files(directory, destination_dir):
 
 def hien_thi_to_chuc_file():
     """Giao diện tổ chức file với Streamlit."""
-    st.title("Tổ chức file vào thư mục con")
+    st.subheader("Tổ chức file vào thư mục")
 
     # Nhập đường dẫn thư mục nguồn và đích
     directory = st.text_input("Nhập đường dẫn thư mục chứa các file cần tổ chức:", value=r'C:\Users\admin\Desktop\New folder')

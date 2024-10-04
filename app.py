@@ -34,7 +34,7 @@ def render():
             hien_thi_tim_kiem_so_cong_van()
 
         with tab2:
-            st.subheader("Tìm kiếm thư mục")
+            st.subheader("Tìm kiếm theo thư mục")
             hien_thi_tim_kiem_danh_sach_thu_muc()
 
         with tab3:
