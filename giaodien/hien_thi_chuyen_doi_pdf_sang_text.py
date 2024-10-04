@@ -26,7 +26,7 @@ def extract_text_from_pdf(pdf_bytes):
 
 def hien_thi_chuyen_doi_pdf_sang_text():
     """Giao diện chuyển đổi PDF sang văn bản trực tiếp trong Streamlit."""
-    st.title("Chuyển đổi PDF sang văn bản trực tiếp trên Streamlit")
+    st.subheader("Chuyển đổi PDF sang văn bản trực tiếp trên Streamlit")
 
     # Tải lên file PDF
     input_pdf = st.file_uploader("Chọn file PDF", type="pdf")
