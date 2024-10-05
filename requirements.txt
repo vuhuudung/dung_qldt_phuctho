@@ -10,3 +10,4 @@ google-auth-oauthlib
 openpyxl
 python-dotenv
 streamlit-aggrid
+ocrmypdf
