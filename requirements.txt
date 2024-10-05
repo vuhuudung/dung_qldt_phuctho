@@ -11,3 +11,4 @@ openpyxl
 python-dotenv
 streamlit-aggrid
 ocrmypdf
+PyMuPDF
