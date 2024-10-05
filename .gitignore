@@ -1,2 +1,7 @@
 HF_TOKEN.json
 test.ipynb
+# Bỏ qua các tệp nhị phân
+cai_dat/build/cai_dat/PYZ-00.pyz
+cai_dat/build/cai_dat/base_library.zip
+cai_dat/build/cai_dat/cai_dat.pkg
+cai_dat/dist/cai_dat.exe
