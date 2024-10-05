@@ -16,7 +16,7 @@ def render():
     st.set_page_config(layout="wide")
     # st.title('web app streamlit hỗ trợ công việc')
     # st.header('web app streamlit hỗ trợ công việc')
-    st.subheader('Welome to my website! Have a nice day!')
+    st.subheader('Welome to my website! Have a nice day abc!')
     st.text('Tác giả: Vũ Hữu Dũng - CV phòng QLĐT')
     st.markdown('---')
 ###########################################################
