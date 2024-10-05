@@ -7,48 +7,14 @@ from giaodien.hien_thi_thong_tin_ung_dung import *
 from giaodien.hien_thi_chuyen_doi_pdf_sang_text import *
 from giaodien.hien_thi_tao_file_danh_sach_thu_muc import *
 from giaodien.hien_thi_tao_file_so_cong_van import *
-from giaodien.hien_thi_tim_kiem_tuyet_doi import *
-from giaodien.hien_thi_tim_kiem_tuong_doi import *
-from giaodien.hien_thi_to_chuc_file import *
 
 ###########################################################
+
+
 def render():
-    st.set_page_config(layout="wide")
-    # st.title('web app streamlit hỗ trợ công việc')
-    # st.header('web app streamlit hỗ trợ công việc')
-    st.subheader('Welome to my website! Have a nice day!')
-    st.text('Tác giả: Vũ Hữu Dũng - CV phòng QLĐT')
-    st.markdown('---')
-###########################################################
-    selected_menu = st.sidebar.radio("Chọn chức năng", ["Tìm kiếm","Tổ chức file", "Tạo file dữ liệu", "Chuyển đổi pdf sang text","Thông tin ứng dụng"])
+    selected_menu = st.sidebar.radio("Chọn chức năng", ["Tạo file dữ liệu","Tìm kiếm", "Chuyển đổi pdf sang text","Thông tin ứng dụng"])
 
-    if selected_menu == "Tìm kiếm":
-        # Tab tìm kiếm sẽ bao gồm hai phần: tìm kiếm công văn và tìm kiếm thư mục
-        tab1, tab2, tab3, tab4 = st.tabs(["Tìm kiếm theo số công văn",
-                              "Tìm kiếm theo tên thư mục",
-                              "Tim kiếm tuyệt đối tên thư mục và tên file",
-                              "Tỉm kiếm tương đối tên thư mục và tên file"])
-        
-        with tab1:
-            st.subheader("Tìm kiếm số công văn")
-            hien_thi_tim_kiem_so_cong_van()
-
-        with tab2:
-            st.subheader("Tìm kiếm theo thư mục")
-            hien_thi_tim_kiem_danh_sach_thu_muc()
-
-        with tab3:
-            st.subheader("Tim kiếm tuyệt đối tên thư mục và tên file")
-            hien_thi_tim_kiem_tuyet_doi()
-        
-        with tab4:
-            st.subheader("Tim kiếm tương đối tên thư mục và tên file")
-            hien_thi_tim_kiem_tuong_doi()
-    
-    elif selected_menu == "Tổ chức file":
-        # Hiển thị thông tin ứng dụng
-        hien_thi_to_chuc_file()
-    elif selected_menu == "Tạo file dữ liệu":
+    if selected_menu == "Tạo file dữ liệu":
         # Tab tạo file dữ liệu bao gồm hai phần: tạo file socongvan.csv và danhsachthumuc.csf
         tab1, tab2 = st.tabs(["Tạo file socongvan.csv", "Tạo file danhsachthumuc.csv"])
         
@@ -59,6 +25,17 @@ def render():
         with tab2:
             st.subheader("Tạo file danhsachthumuc.csv")
             hien_thi_tao_file_danh_sach_thu_muc()
+    elif selected_menu == "Tìm kiếm":
+        # Tab tìm kiếm sẽ bao gồm hai phần: tìm kiếm công văn và tìm kiếm thư mục
+        tab1, tab2 = st.tabs(["Tìm kiếm theo số công văn", "Tìm kiếm theo tên thư mục"])
+        
+        with tab1:
+            st.subheader("Tìm kiếm số công văn")
+            hien_thi_tim_kiem_so_cong_van()
+
+        with tab2:
+            st.subheader("Tìm kiếm thư mục")
+            hien_thi_tim_kiem_danh_sach_thu_muc()
     
     elif selected_menu == "Chuyển đổi pdf sang text":
         # Hiển thị thông tin ứng dụng
